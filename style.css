@@ -1,0 +1,76 @@
+/* Mobile-first styles */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f9;
+}
+
+/* Styling for the main container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Styling for each wiki-item */
+.wiki-item {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px 0; /* Adds space around each item */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow effect */
+}
+
+/* Styling for the header */
+.wiki-header {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333333;
+    margin: 10px 0;
+    padding: 0;
+}
+
+/* Styling for the content section */
+.wiki-content {
+    padding: 15px; /* Adds padding inside the content area */
+}
+
+/* Styling for the paragraph text */
+.wiki-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555555;
+    margin: 0 0 10px 0;
+}
+
+/* Styling for the image container and image */
+.img-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.wiki-img {
+    width: 100%; /* Ensures images fit within the parent container */
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Additional styles for larger screens */
+@media (min-width: 768px) {
+    .wiki-item {
+        margin: 15px auto; /* Centered margin on larger screens */
+    }
+    
+    .wiki-header {
+        font-size: 1.75rem;
+    }
+    
+    .wiki-text {
+        font-size: 1.1rem;
+    }
+}
