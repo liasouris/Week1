@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <title>Dog Breeds</title>
-    <link rel="preconnect" href="https://dog.ceo/dog-api/">
-    <link rel="preconnect" href="https://en.wikipedia.org/api/rest_v1/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dog Breeds Wiki</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container"></div> 
-        <div class="wiki-item" >
-        <h1 class="wiki-header">Breed X</h1>
-        <div class="wiki-content">
-           <p class="wiki-text">
-             Some text about this breed.
-           </p>
-           <div class="img-container">
-             <img class="wiki-img" src="">
-           </div>
+  <div class="container" id="wiki-container">
+    <div class="wiki-item" id="wiki-template" style="display: none;">
+      <h1 class="wiki-header">Breed X</h1>
+      <div class="wiki-content">
+        <p class="wiki-text">Some text about this breed.</p>
+        <div class="img-container">
+          <img class="wiki-img" src="">
         </div>
       </div>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
 </body>

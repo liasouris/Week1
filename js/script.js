@@ -1,79 +1,40 @@
-const dogbreed = [
-    { name: "Husky", imgSrc: "https://dog.ceo/api/breed/husky/images/random" },
-    { name: "Beagle", imgSrc: "https://dog.ceo/api/breed/beagle/images/random" },
-    { name: "Chihuahua", imgSrc: "https://dog.ceo/api/breed/chihuahua/images/random" },
-    { name: "Labrador", imgSrc: "https://dog.ceo/api/breed/labrador/images/random" },
-    { name: "Pug", imgSrc: "https://dog.ceo/api/breed/pug/images/random" }
-];
+const wikiContainer = document.getElementById("wiki-container");
+const template = document.getElementById("wiki-template");
+const breeds = ["husky", "labrador", "beagle", "pug", "malamute", "chihuahua"];
 
-// Function to fetch summary text from Wikipedia API
-async function fetchBreedSummary(breedName) {
-    const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${breedName}`;
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        return data.extract || "No summary available."; // Return the summary text if available
-    } catch (error) {
-        console.error("Error fetching breed summary:", error);
-        return "No summary available."; // Return placeholder if there's an error
-    }
+async function generateWikiItems() {
+  for (let breed of breeds) {
+    const imageUrl = await fetchDogImage(breed);
+    const summaryText = await fetchWikiSummary(breed);
+    createWikiItem(breed, imageUrl, summaryText);
+  }
+}
+async function fetchDogImage(breed) {
+  const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
+  const data = await response.json();
+  return data.message;
+}
+async function fetchWikiSummary(breed) {
+  const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${breed}`);
+  const data = await response.json();
+  return data.extract;
 }
 
-// Asynchronous function to fetch a random image for a breed
-async function fetchRandomImage(url) {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.message; // URL of the random image
-    } catch (error) {
-        console.error("Error fetching image:", error);
-        return ""; // Return empty string if there's an error
-    }
+function createWikiItem(breed, imageUrl, summaryText) {
+
+  const wikiItem = template.cloneNode(true);
+  wikiItem.style.display = "block";
+  wikiItem.removeAttribute("id");
+
+  wikiItem.querySelector(".wiki-header").textContent = capitalize(breed);
+  wikiItem.querySelector(".wiki-text").textContent = summaryText;
+  wikiItem.querySelector(".wiki-img").src = imageUrl;
+
+  wikiContainer.appendChild(wikiItem);
 }
 
-// Asynchronous function to create a wiki-item with random image and Wikipedia summary
-async function createWikiItem(breed) {
-    const wikiItem = document.createElement("div");
-    wikiItem.className = "wiki-item";
-  
-    const header = document.createElement("h1");
-    header.className = "wiki-header";
-    header.textContent = breed.name;
-  
-    const content = document.createElement("div");
-    content.className = "wiki-content";
-  
-    // Fetch Wikipedia summary for the breed
-    const text = document.createElement("p");
-    text.className = "wiki-text";
-    text.textContent = await fetchBreedSummary(breed.name); // Fetch and set breed summary
-  
-    const imgContainer = document.createElement("div");
-    imgContainer.className = "img-container";
-  
-    // Fetch a random image for this breed
-    const img = document.createElement("img");
-    img.className = "wiki-img";
-    img.src = await fetchRandomImage(breed.imgSrc);
-  
-    imgContainer.appendChild(img);
-    content.appendChild(text);
-    content.appendChild(imgContainer);
-    wikiItem.appendChild(header);
-    wikiItem.appendChild(content);
-  
-    return wikiItem;
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Asynchronous function to populate the wiki items
-async function populateWikiItems() {
-    const container = document.querySelector(".container");
-  
-    for (const breed of dogbreed) {
-        const wikiItem = await createWikiItem(breed);
-        container.appendChild(wikiItem);
-    }
-}
-
-// Call the function to populate items when the page loads
-populateWikiItems();
+generateWikiItems();
