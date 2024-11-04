@@ -1,6 +1,6 @@
 const wikiContainer = document.getElementById("wiki-container");
 const template = document.getElementById("wiki-template");
-const breeds = ["husky", "labrador", "beagle", "pug", "malamute", "chihuahua"];
+const breeds = ["husky", "labradoodle", "beagle", "pug", "malamute", "doberman", "dachshund"];
 
 async function generateWikiItems() {
     for (let breed of breeds) {
