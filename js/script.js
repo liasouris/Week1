@@ -3,10 +3,10 @@ const template = document.getElementById("wiki-template");
 const breeds = ["husky", "labrador", "beagle", "pug", "malamute", "chihuahua"];
 
 async function generateWikiItems() {
-  for (let breed of breeds) {
-    const imageUrl = await fetchDogImage(breed);
-    const summaryText = await fetchWikiSummary(breed);
-    createWikiItem(breed, imageUrl, summaryText);
+    for (let breed of breeds) {
+        const imageUrl = await fetchDogImage(breed);
+        const summaryText = await fetchWikiSummary(breed);
+        createWikiItem(breed, imageUrl, summaryText);
   }
 }
 async function fetchDogImage(breed) {
@@ -25,7 +25,6 @@ function createWikiItem(breed, imageUrl, summaryText) {
   const wikiItem = template.cloneNode(true);
   wikiItem.style.display = "block";
   wikiItem.removeAttribute("id");
-
   wikiItem.querySelector(".wiki-header").textContent = capitalize(breed);
   wikiItem.querySelector(".wiki-text").textContent = summaryText;
   wikiItem.querySelector(".wiki-img").src = imageUrl;
@@ -34,7 +33,7 @@ function createWikiItem(breed, imageUrl, summaryText) {
 }
 
 function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+    return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
 generateWikiItems();
